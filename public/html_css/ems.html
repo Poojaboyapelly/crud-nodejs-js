@@ -12,35 +12,142 @@
   border:1px solid black;
  } */
   .navbar{
-        width: 100%,
-        background-color: #555;
+      padding:10px;
+      width: 100%;
+      background-color: #555;
     }
-    .navbar a {
-  float: left;
+
+  .navbar a {
+  text-align:left;
   padding: 12px;
   color: black;
   text-decoration: none;
   font-size: 17px;
-}
-   .navbar a:hover {
+  }
+
+  .navbar a:hover {
   background-color: #000;
-}
-   .active {
+  }
+
+  .active {
   background-color: #04AA6D;
-}
-   
+  }
+
+  .create-employee {
+      
+      padding: 10px ;
+      text-align:left;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 5px 5px 0 0;
+      background-color: #f2f2f2;
+  }
+
+  
+  .form-content {
+      display: none;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+  }
+  .form-content div {
+    margin-bottom: 15px;
+  }
+  .form-content label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-content select {
+    width: 100%; 
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  .form-content button {
+    background-color: #04AA6D;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .form-content button:hover {
+    background-color: #45a049;
+  }
+  .actions {
+            white-space: nowrap;
+        }
+
+  .edit-icon,
+  .delete-icon {
+            cursor: pointer;
+            margin-right: 10px;
+   }
+  
+  .table-container {
+            display: block;
+        }
+
+  .form-container {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>
         Employee Management System
     </h1>
+
     <div class="navbar">
-        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
-        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a> 
-        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
-        <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
-      </div>
+        <a class="active" href="#" onclick="showTable()"><i class="fa fa-fw fa-home"></i> Home</a> 
+        <a class="create-employee" href="#" onclick="showForm('form1')">Create Employee</a>
+    </div>
+    
+   
+  <div id="form-container" class="form-content">
+  <h2>Create a new record</h2>
+  
+  <form>
+    <div>
+    <label for="employeeName">Employee Name:</label>
+    <input type="text" id="employeeName" name="employeeName">
+  </div>
+    <div>
+    <label for="employeeId">Employee ID:</label>
+    <input type="text" id="employeeId" name="employeeId">
+  </div>
+  <div>
+    <label for="department">Department:</label>
+    <input type="text" id="department" name="department">
+  </div>
+  <div>
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob">
+  </div>
+  <div>
+    <label for="isActive">Is Active:</label>
+    <input type="checkbox" id="isActive" name="isActive">
+  </div>
+  <div>
+    <label for="employmentType">Employment Type:</label>
+    <select id="employmentType" name="employmentType">
+      <option value="FullTime">Full Time</option>
+      <option value="PartTime">Part Time</option>
+      <option value="Contract"> Contract</option>
+      
+    </select>
+  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+  </form>
+</div>
+
+
+<div id="table-container" class="table-container">
 
      <table class="table table-striped">
         <thead>
@@ -52,6 +159,8 @@
             <th scope="col">DOB</th>
             <th scope="col">isActive</th>
             <th scope="col">Employment Type</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -63,6 +172,12 @@
             <td>19-06-2002</td>
             <td>true</td>
             <td>Fulltime</td>
+            <td class="actions">
+              <span class="edit-icon" onclick="editRow(this)"><i class="fa fa-edit"></i></span>
+            </td>
+            <td
+              <span class="delete-icon" onclick="deleteRow(this)"><i class="fa fa-trash"></i></span>
+          </td>
           </tr>
           <tr>
             <th scope="row">2</th>
@@ -72,6 +187,12 @@
             <td>19-06-2003</td>
             <td>true</td>
             <td>Contract</td>
+            <td class="actions">
+              <span class="edit-icon" onclick="editRow(this)"><i class="fa fa-edit"></i></span>
+            </td>
+            <td
+              <span class="delete-icon" onclick="deleteRow(this)"><i class="fa fa-trash"></i></span>
+          </td>
           </tr>
           <tr>
             <th scope="row">3</th>
@@ -81,8 +202,28 @@
             <td>19-06-2001</td>
             <td>true</td>
             <td>Parttime</td>
+            <td class="actions">
+              <span class="edit-icon" onclick="editRow(this)"><i class="fa fa-edit"></i></span>
+            </td>
+            <td
+              <span class="delete-icon" onclick="deleteRow(this)"><i class="fa fa-trash"></i></span>
+          </td>
           </tr>
         </tbody>
       </table>
+    </div>
+      <script>
+         function showTable() {
+            document.getElementById('table-container').style.display = 'block';
+            document.getElementById('form-container').style.display = 'none';
+        }
+        function showForm() {
+            document.getElementById('table-container').style.display = 'none';
+            document.getElementById('form-container').style.display = 'block';
+        }
+       
+        
+    </script>
+
 </body>
 </html>
