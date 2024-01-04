@@ -56,6 +56,7 @@ router.get('/', async (req, res) => {
 
         const employees = await Employee.find(query).sort(sortOptions);
 
+        
         res.json(employees);
     } catch (err) {
         res.status(500).json({ error: err.message });
