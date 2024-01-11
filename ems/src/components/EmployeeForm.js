@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 
 const EmployeeForm = ({ onSubmit }) => {
-  const [employeeName, setEmployeeName] = useState('');
-  const [employeeId, setEmployeeId] = useState('');
-  const [department, setDepartment] = useState('');
+  const [name, setname] = useState('');
+  const [employeeId, setemployeeId] = useState('');
+  const [department, setdepartment] = useState('');
   const [dob, setdob] = useState('');
   const [isActive, setisActive] = useState(false);
-  const [employmentType, setEmploymentType] = useState('');
+  const [employmentType, setemploymentType] = useState('');   
   EmployeeForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
@@ -25,7 +25,7 @@ const EmployeeForm = ({ onSubmit }) => {
 
           const newEmployee = {
             employeeId,
-            employeeName,
+            name,
             department,
             dob,
             isActive,
@@ -40,25 +40,25 @@ const EmployeeForm = ({ onSubmit }) => {
   // Pass the new employee data to the parent component for submission
 
           // Optionally, you can reset the form fields after submission
-          setEmployeeName('');
-          setEmployeeId('');
-          setDepartment('');
+          setname('');
+          setemployeeId('');
+          setdepartment('');
           setdob('');
           setisActive(false);
-          setEmploymentType('');
+          setemploymentType('');
         }}
       >
         <div>
           <label htmlFor="employeeName">Employee Name:</label>
-          <input type="text" id="employeeName" name="employeeName" value={employeeName} onChange={(e) => setEmployeeName(e.target.value)} />
+          <input type="text" id="employeeName" name="employeeName" value={name} onChange={(e) => setname(e.target.value)} />
         </div>
         <div>
           <label htmlFor="employeeId">Employee ID:</label>
-          <input type="text" id="employeeId" name="employeeId" value={employeeId} onChange={(e) => setEmployeeId(e.target.value)} />
+          <input type="text" id="employeeId" name="employeeId" value={employeeId} onChange={(e) => setemployeeId(e.target.value)} />
         </div>
         <div>
           <label htmlFor="department">Department:</label>
-          <input type="text" id="department" name="department" value={department} onChange={(e) => setDepartment(e.target.value)} />
+          <input type="text" id="department" name="department" value={department} onChange={(e) => setdepartment(e.target.value)} />
         </div>
         <div>
           <label htmlFor="dob">DOB:</label>
@@ -70,7 +70,7 @@ const EmployeeForm = ({ onSubmit }) => {
         </div>
         <div>
           <label htmlFor="employmentType">Employment Type:</label>
-          <select id="employmentType" name="employmentType" value={employmentType} onChange={(e) => setEmploymentType(e.target.value)}>
+          <select id="employmentType" name="employmentType" value={employmentType} onChange={(e) => setemploymentType(e.target.value)}>
             <option value="FullTime">FullTime</option>
             <option value="PartTime">PartTime</option>
             <option value="Contract">Contract</option>

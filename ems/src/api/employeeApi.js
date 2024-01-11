@@ -23,7 +23,7 @@ export const deleteEmployee = async (employeeId) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status} `);
+      throw new Error(`HTTP error! Status: ${response.status}  - ${await response.text()} for URL: ${response.url}`);
     }
 
     console.log('Employee deleted successfully');
@@ -32,3 +32,20 @@ export const deleteEmployee = async (employeeId) => {
     throw error;
   }
 };
+
+export const getEmployee = async (employeeId) => {
+    try {
+      const response = await fetch(`${apiUrl}/${employeeId}`);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching employee:', error);
+      throw error; 
+    }
+  };
+  

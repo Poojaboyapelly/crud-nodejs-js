@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getTable, deleteEmployee } from '../api/employeeApi'; 
 import './Dashboard.css';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const Dashboard = () => {
@@ -20,11 +20,20 @@ const Dashboard = () => {
       console.error('Error fetching employees:', error);
     }
   };
+  const navigate = useNavigate();
 
-  const handleEdit = (employeeId) => {
-    // Implement your edit logic here
-    console.log('Edit employee with ID:', employeeId);
+  const handleEdit = async (employeeId) => {
+    try {
+      const employeeData = employees.find((employee) => employee.employeeId === employeeId);
+
+      // Navigate to the edit form, passing the employee data
+      navigate(`/edit/${employeeId}`, { state: employeeData });
+    } catch (error) {
+      console.error('Error fetching employee data:', error);
+      alert('Error fetching employee data. Please try again.');
+    }
   };
+
 
   const handleDelete = async (employeeId) => {
     try {
@@ -34,6 +43,7 @@ const Dashboard = () => {
       alert('Employee deleted successfully');
     } catch (error) {
       console.error('Error deleting employee:', error);
+      
     }
   };
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import EmployeeForm from '../components/EmployeeForm';
 
+
 const EmployeeManagementPage = () => {
     const [employees, setEmployees] = useState([]);
   
     useEffect(() => {
-      // Fetch the initial list of employees 
+     
       fetchEmployees();
     }, []);
   
@@ -23,6 +24,8 @@ const EmployeeManagementPage = () => {
     };
   
     const handleFormSubmit = async (newEmployee) => {
+
+        
       try {
         const response = await fetch('http://localhost:3000/employees', {
           method: 'POST',
@@ -53,7 +56,8 @@ const EmployeeManagementPage = () => {
         
         <ul>
           {employees.map((employee) => (
-            <li key={employee.employeeId}>{employee.employeeName}</li>
+            <li key={employee.employeeId}>{employee.employeeName}
+            </li>
           ))}
         </ul>
 
