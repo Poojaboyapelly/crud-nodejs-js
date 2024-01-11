@@ -1,9 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors'); 
 const url = 'mongodb://localhost:27017'
 const PORT = 3000
 
 const test = express()
+test.use(cors());
 
 mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology: true,})
 
@@ -14,6 +16,7 @@ conn.on('open',function(){
     console.log('connected to mongodb')
 
 })
+
 
 test.use(express.json())
 

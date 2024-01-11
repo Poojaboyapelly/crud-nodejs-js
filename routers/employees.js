@@ -19,11 +19,10 @@ router.get('/',async(req,res) => {
 });
 
 
-router.get('/:employeeId/:name', async (req, res) => {
+router.get('/:employeeId', async (req, res) => {
     try {
         const employees = await Employee.findOne({
             employeeId: req.params.employeeId,
-            name: req.params.name,
         });
         res.json(employees);
 
@@ -68,7 +67,7 @@ router.post('/',async(req,res) => {
 const emp=new Employee({
     employeeId: req.body.employeeId,
     name: req.body.name,
-    DOB:req.body.DOB,
+    dob:req.body.dob,
     department: req.body.department,
     isActive:req.body.isActive,
     employmentType: req.body.employmentType

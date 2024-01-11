@@ -10,7 +10,7 @@ const employeeSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    DOB: { 
+    dob: { 
         type: Date, 
         required: true 
     },
@@ -24,7 +24,7 @@ const employeeSchema = new mongoose.Schema({
      },
     employmentType: {
       type: String,
-      enum: ['Fulltime', 'Parttime', 'Contract'],
+      enum: ['FullTime', 'PartTime', 'Contract'],
     },
   });
 
