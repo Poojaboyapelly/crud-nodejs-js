@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getTable, deleteEmployee } from '../api/employeeApi'; 
+import { getTable, deleteEmployee,getEmployee } from '../api/employeeApi'; 
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ const Dashboard = () => {
       const employeesData = await getTable();
    
       setEmployees(employeesData);
+      
     } catch (error) {
       console.error('Error fetching employees:', error);
     }
@@ -24,10 +25,10 @@ const Dashboard = () => {
 
   const handleEdit = async (employeeId) => {
     try {
-      const employeeData = employees.find((employee) => employee.employeeId === employeeId);
-
+     // Refetch employee data from API
+      const employeeData = await getEmployee(employeeId);
       // Navigate to the edit form, passing the employee data
-      navigate(`/edit/${employeeId}`, { state: employeeData });
+      navigate(`employees/edit/${employeeId}`, { state: employeeData });
     } catch (error) {
       console.error('Error fetching employee data:', error);
       alert('Error fetching employee data. Please try again.');
@@ -37,9 +38,11 @@ const Dashboard = () => {
 
   const handleDelete = async (employeeId) => {
     try {
-      await deleteEmployee(employeeId);
-      // Update the state to remove the deleted employee
-      setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee.employeeId !== employeeId));
+        await deleteEmployee(employeeId);
+
+        // Refetch updated employee data from API
+        await showTable(); // Call showTable to fetch fresh data
+    
       alert('Employee deleted successfully');
     } catch (error) {
       console.error('Error deleting employee:', error);

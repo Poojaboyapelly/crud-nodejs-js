@@ -81,7 +81,7 @@ try {
 });
 
 
-router.put('/:employeeId', async (req, res) => { 
+router.put('employees/:employeeId', async (req, res) => { 
     try {
         const updatedEmployee = await Employee.findOneAndUpdate(
             { employeeId: req.params.employeeId },

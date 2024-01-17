@@ -49,3 +49,24 @@ export const getEmployee = async (employeeId) => {
     }
   };
   
+  export const updateEmployee = async (employeeId, updatedEmployeeData) => {
+    const apiUrl = 'http://localhost:3000/employees/${employeeId}'; 
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedEmployeeData),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      console.log('Employee updated successfully!');
+      return response.json(); // Optional: Return the updated employee data
+    } catch (error) {
+      console.error('Error updating employee:', error);
+      throw error; // Re-throw the error for handling in the calling function
+    }
+  };
