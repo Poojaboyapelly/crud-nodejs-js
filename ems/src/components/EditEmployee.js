@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import EmployeeForm from '../components/EmployeeForm';
-import { getEmployee ,getTable, updateEmployee} from '../api/employeeApi';
+import { getEmployee , updateEmployee} from '../api/employeeApi';
 
 
 const EditEmployee = () => {
@@ -25,7 +25,7 @@ const EditEmployee = () => {
   
       fetchData();
     }, [employeeId]);
-  console.log(employeeData);
+  
     const handleFormSubmit = async (updatedEmployee) => {
         try {
             //console.log('Submitting employee data:', updatedEmployee);

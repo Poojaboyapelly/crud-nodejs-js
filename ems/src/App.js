@@ -17,9 +17,9 @@ const App = () => {
         <Route path="/" element={<Dashboard/>} />
         <Route path="/employees" element={<EmployeeForm />} />
         <Route
-    path="employees/edit/:employeeId"
+    path="/employees/edit/:employeeId"
     element={
-        <EditEmployee  />
+        <EditEmployee />
     }
 />
       </Routes>

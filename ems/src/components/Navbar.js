@@ -3,7 +3,7 @@ import { Link ,useParams} from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-  const { employeeId } = useParams();
+  //const { employeeId } = useParams();
   return (
     <nav>
       <ul>

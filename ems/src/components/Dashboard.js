@@ -27,8 +27,9 @@ const Dashboard = () => {
     try {
      // Refetch employee data from API
       const employeeData = await getEmployee(employeeId);
+      console.log('employeeData',employeeData);
       // Navigate to the edit form, passing the employee data
-      navigate(`employees/edit/${employeeId}`, { state: employeeData });
+      navigate(`/employees/edit/${employeeId}`, { state: employeeData });
     } catch (error) {
       console.error('Error fetching employee data:', error);
       alert('Error fetching employee data. Please try again.');
