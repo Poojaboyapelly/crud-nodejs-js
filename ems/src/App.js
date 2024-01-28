@@ -15,9 +15,9 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard/>} />
-        <Route path="/employees" element={<EmployeeForm />} />
+        <Route path="/employees" element={<EmployeeForm  initialValues={{}}/>} />
         <Route
-    path="/employees/edit/:employeeId"
+    path="/employees/:employeeId"
     element={
         <EditEmployee />
     }

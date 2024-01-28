@@ -17,6 +17,7 @@ const EditEmployee = () => {
           try {
             const employee = await getEmployee(employeeId);
             setEmployeeData(employee);
+            console.log(employee);
           } catch (error) {
             console.error('Error fetching employee data:', error);
           }
@@ -25,6 +26,9 @@ const EditEmployee = () => {
   
       fetchData();
     }, [employeeId]);
+
+
+    
   
     const handleFormSubmit = async (updatedEmployee) => {
         try {
@@ -41,7 +45,7 @@ const EditEmployee = () => {
 
   return (
     <div>
-    <h2>Edit Employee</h2>
+  
     <EmployeeForm
       initialValues={employeeData}
       onSubmit={handleFormSubmit}

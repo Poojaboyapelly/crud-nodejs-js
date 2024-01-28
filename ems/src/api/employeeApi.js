@@ -50,7 +50,7 @@ export const getEmployee = async (employeeId) => {
   };
   
   export const updateEmployee = async (employeeId, updatedEmployeeData) => {
-    const apiUrl = 'http://localhost:3000/employees/${employeeId}'; 
+    const apiUrl = `http://localhost:3000/employees/${employeeId}`; 
   
     try {
       const response = await fetch(apiUrl, {

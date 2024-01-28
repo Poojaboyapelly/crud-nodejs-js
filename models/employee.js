@@ -6,7 +6,7 @@ const employeeSchema = new mongoose.Schema({
         required: true, 
         unique: true 
     },
-    name: {
+    employeename: {
         type: String, 
         required: true 
     },

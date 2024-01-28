@@ -66,7 +66,7 @@ router.get('/', async (req, res) => {
 router.post('/',async(req,res) => {
 const emp=new Employee({
     employeeId: req.body.employeeId,
-    name: req.body.name,
+    employeename: req.body.employeename,
     dob:req.body.dob,
     department: req.body.department,
     isActive:req.body.isActive,
@@ -81,7 +81,7 @@ try {
 });
 
 
-router.put('employees/:employeeId', async (req, res) => { 
+router.put('/:employeeId', async (req, res) => { 
     try {
         const updatedEmployee = await Employee.findOneAndUpdate(
             { employeeId: req.params.employeeId },

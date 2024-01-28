@@ -29,7 +29,7 @@ const Dashboard = () => {
       const employeeData = await getEmployee(employeeId);
       console.log('employeeData',employeeData);
       // Navigate to the edit form, passing the employee data
-      navigate(`/employees/edit/${employeeId}`, { state: employeeData });
+      navigate(`/employees/${employeeId}`, { state: employeeData });
     } catch (error) {
       console.error('Error fetching employee data:', error);
       alert('Error fetching employee data. Please try again.');
@@ -56,7 +56,7 @@ const Dashboard = () => {
    
     <div>
       <h2>Employee list</h2>
-      <table id = "employee-table" class= "table table-stripped">
+      <table id = "employee-table"  className="employee-table table table-striped">
         <thead>
           <tr>
           <th scope="col">Employee ID</th>
@@ -73,10 +73,10 @@ const Dashboard = () => {
           {employees.map((employee) => (
             <tr key={employee.employeeId}>
               <td>{employee.employeeId}</td>
-              <td>{employee.name}</td>
+              <td>{employee.employeename}</td>
               <td>{employee.department}</td>
               <td>{employee.dob}</td>
-              <td>{employee.isActive}</td>
+              <td>{employee.isActive ? 'Yes' : 'No'}</td>
               <td>{employee.employmentType}</td>
               <td>
                 <button onClick={() => handleEdit(employee.employeeId)}>
