@@ -26,6 +26,11 @@ const employeeSchema = new mongoose.Schema({
       type: String,
       enum: ['FullTime', 'PartTime', 'Contract'],
     },
+    role:{
+        type: String,
+        enum: ['Admin', 'Normal', 'SuperAdmin'],
+    }
   });
 
   module.exports = mongoose.model('employee',employeeSchema)
+

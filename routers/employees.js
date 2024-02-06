@@ -1,20 +1,18 @@
 const express = require('express')
-const router =express.Router()
+const router = express.Router()
 const Employee = require('../models/employee');
 
 
-router.get('/',async(req,res) => {
+router.get('/', async (req, res) => {
 
- try
- {
-    const employees = await Employee.find()
-    res.json(employees)
+    try {
+        const employees = await Employee.find()
+        res.json(employees)
 
- }
- catch(err)
- {
-    res.send('Error' + err)
- }
+    }
+    catch (err) {
+        res.send('Error' + err)
+    }
 
 });
 
@@ -33,29 +31,29 @@ router.get('/:employeeId', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        
+
         const { department, sort } = req.query;
-        
-        
-        console.log('Department:', department); 
+
+
+        console.log('Department:', department);
 
         const query = {};
         if (department) {
             query.department = department;
         }
-        
-        console.log('Query:', ); 
+
+        console.log('Query:',);
 
         const sortOptions = {};
         if (sort === 'desc') {
-            sortOptions.name = -1; 
+            sortOptions.name = -1;
         } else {
-            sortOptions.name = 1; 
+            sortOptions.name = 1;
         }
 
         const employees = await Employee.find(query).sort(sortOptions);
 
-        
+
         res.json(employees);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -63,25 +61,26 @@ router.get('/', async (req, res) => {
 });
 
 
-router.post('/',async(req,res) => {
-const emp=new Employee({
-    employeeId: req.body.employeeId,
-    employeename: req.body.employeename,
-    dob:req.body.dob,
-    department: req.body.department,
-    isActive:req.body.isActive,
-    employmentType: req.body.employmentType
-});
-try {
-    const e1 = await emp.save();
-    res.json(e1);
-} catch (err) {
-    res.send('Error' + err);
-}
+router.post('/', async (req, res) => {
+    const emp = new Employee({
+        employeeId: req.body.employeeId,
+        employeename: req.body.employeename,
+        dob: req.body.dob,
+        department: req.body.department,
+        isActive: req.body.isActive,
+        employmentType: req.body.employmentType,
+        role: req.body.role
+    });
+    try {
+        const e1 = await emp.save();
+        res.json(e1);
+    } catch (err) {
+        res.send('Error' + err);
+    }
 });
 
 
-router.put('/:employeeId', async (req, res) => { 
+router.put('/:employeeId', async (req, res) => {
     try {
         const updatedEmployee = await Employee.findOneAndUpdate(
             { employeeId: req.params.employeeId },
@@ -99,7 +98,7 @@ router.put('/:employeeId', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-  
+
 
 router.delete('/:employeeId', async (req, res) => {
     try {
@@ -118,6 +117,29 @@ router.delete('/:employeeId', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+/*
+app.post('/signup', (req, res) => {
+  const { username, password } = req.body;
+  
+ res.json({ message: 'User signed up successfully' });
+});
+ 
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  
+  const user = users.find(user => user.username === username && user.password === password);
+  if (user) {
+    res.json({ message: 'Login successful' });
+  } else {
+    res.status(401).json({ error: 'Invalid username or password' });
+  }
+});
+*/
+
+
 
 
 module.exports = router
