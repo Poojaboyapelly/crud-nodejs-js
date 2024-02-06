@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors'); 
 const url = 'mongodb://localhost:27017'
 const PORT = 3000
+const userRoutes = require('./routers/users')
 
 const test = express()
 test.use(cors());
@@ -22,6 +23,13 @@ test.use(express.json())
 
 const employeeRouter = require('./routers/employees')
 test.use('/employees',employeeRouter)
+// const SignupRouter =require('./routers/users').default
+// test.use('/signup',SignupRouter)
+
+test.use('/api/user',userRoutes)
+
+
+
 
 
 test.listen(PORT,function() {
