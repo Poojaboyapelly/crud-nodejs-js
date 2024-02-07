@@ -69,11 +69,9 @@ router.post('/signin', async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Invalid password' });
     }
-    if (passwordMatch) console.log("yes")
-
 
     const payload = { username: user.username, role: user.role };
-    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
+    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 600 });
 
 
     res.status(200).json({
