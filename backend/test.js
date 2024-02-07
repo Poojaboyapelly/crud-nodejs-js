@@ -23,8 +23,6 @@ test.use(express.json())
 
 const employeeRouter = require('./routers/employees')
 test.use('/employees',employeeRouter)
-// const SignupRouter =require('./routers/users').default
-// test.use('/signup',SignupRouter)
 
 test.use('/api/user',userRoutes)
 
