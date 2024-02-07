@@ -22,7 +22,7 @@ conn.on('open',function(){
 test.use(express.json())
 
 const employeeRouter = require('./routers/employees')
-test.use('/employees',employeeRouter)
+test.use('/api/employees',employeeRouter)
 
 test.use('/api/user',userRoutes)
 
