@@ -1,7 +1,9 @@
+// require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt'); 
 
 router.post('/', async (req, res) => {
 
@@ -47,48 +49,48 @@ router.post('/', async (req, res) => {
 });
 
 
-router.post('/signin', async (req, res) => {
-    try {
+// router.post('/signin', async (req, res) => {
+//     try {
         
-        if (!req.body.username || !req.body.password) {
-            return res.status(400).json({ error: 'Username and password are required' });
-        }
+//         if (!req.body.username || !req.body.password) {
+//             return res.status(400).json({ error: 'Username and password are required' });
+//         }
 
-        // Find user by username
-        const user = await User.findOne({ username: req.body.username });
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid username' }); 
-        }
+//         // Find user by username
+//         const user = await User.findOne({ username: req.body.username });
+//         if (!user) {
+//             return res.status(401).json({ error: 'Invalid username' }); 
+//         }
 
-        // Verify password 
-        const passwordMatch = await bcrypt.compare(req.body.password, user.password);
-        if (!passwordMatch) {
-            return res.status(401).json({ error: 'Invalid password' }); 
-        }
+//         // Verify password 
+//         const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+//         if (!passwordMatch) {
+//             return res.status(401).json({ error: 'Invalid password' }); 
+//         }
 
         
-        const payload = { username: user.username, role: user.role }; 
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 900 }); 
+//         const payload = { username: user.username, role: user.role }; 
+//         const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 900 }); 
        
 
         
-        res.status(200).json({
-            auth: true,
-            user: {
-                username: user.username,
-                role: user.role 
-            },
-            token: token
-        });
-    } catch (err) {
-        console.error(err);
-        if (err.name === 'JsonWebTokenError') {
-            return res.status(401).json({ error: 'Invalid or expired token' });
-        } else {
-            return res.status(500).json({ error: 'Internal server error' });
-        }
-    }
-});
+//         res.status(200).json({
+//             auth: true,
+//             user: {
+//                 username: user.username,
+//                 role: user.role 
+//             },
+//             token: token
+//         });
+//     } catch (err) {
+//         console.error(err);
+//         if (err.name === 'JsonWebTokenError') {
+//             return res.status(401).json({ error: 'Invalid or expired token' });
+//         } else {
+//             return res.status(500).json({ error: 'Internal server error' });
+//         }
+//     }
+// });
 
 module.exports = router
 

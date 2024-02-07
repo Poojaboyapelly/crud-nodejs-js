@@ -1,0 +1,11 @@
+
+GET http://localhost:3000/api/user/posts
+
+###
+
+POST http://localhost:3000/api/user/signin
+Content-Type: application/json
+{
+    "username": "ABC"
+}
+
