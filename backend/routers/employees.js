@@ -1,7 +1,9 @@
+require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const Employee = require('../models/employee');
-
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 router.get('/', async (req, res) => {
 
@@ -118,28 +120,83 @@ router.delete('/:employeeId', async (req, res) => {
     }
 });
 
+// Signup method
+router.post('/employee/signup', async (req, res) => {
 
-/*
-app.post('/signup', (req, res) => {
-  const { username, password } = req.body;
-  
- res.json({ message: 'User signed up successfully' });
-});
- 
+    function containsSpecialChars(str) {
+        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        return specialChars.test(str);
+      }
+  try {
+    const existingEmployee = await Employee.findOne({ employeeId: req.body.employeeId });
+    if (!req.body.password || !containsSpecialChars(req.body.password)) {
+        return res.status(400).json({ error: 'Password must contain at least 1 special character and not be empty' });
+      }
 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  
-  const user = users.find(user => user.username === username && user.password === password);
-  if (user) {
-    res.json({ message: 'Login successful' });
-  } else {
-    res.status(401).json({ error: 'Invalid username or password' });
+    if (existingEmployee) {
+      return res.status(400).json({ error: 'Employee ID already exists' });
+    }
+
+    const employee = new Employee(req.body);
+    await employee.save();
+
+    const payload = { employeeId: employee.employeeId, role: employee.role };
+    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 600 });
+
+    res.status(201).json({ success: true, token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
-*/
+
+// Signin method
+router.post('/employee/signin', async (req, res) => {
+  try {
+    const employee = await Employee.findOne({ employeeId: req.body.employeeId });
+
+    if (!employee) {
+      return res.status(401).json({ error: 'Invalid employee ID' });
+    }
+
+    const passwordMatch = await bcrypt.compare(req.body.password, employee.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Invalid password' });
+    }
+
+    const payload = { employeeId: employee.employeeId, role: employee.role };
+    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 600 });
+
+    res.status(200).json({ auth: true, token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
+router.get('/validateToken', async (req, res) => {
+    // let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
+    let jwtSecretKey = process.env.ACCESS_TOKEN_SECRET;
+  
+    try {
+      // const token = req.header(Bearer);
+      const authHeader = req.headers["authorization"]
+      const token = authHeader && authHeader.split(' ')[1]
+      console.log(token)
+  
+      const verified = jwt.verify(token, jwtSecretKey);
+      if (verified) {
+        return res.send("Successfully Verified");
+      } else {
+        // Access Denied
+        return res.status(401).send(error);
+      }
+    } catch (error) {
+      // Access Denied
+      return res.status(401).send(error);
+    }
+  })
+  
 
-
-module.exports = router
+module.exports = router;
