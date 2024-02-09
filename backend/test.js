@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors'); 
 const url = 'mongodb://localhost:27017'
 const PORT = 3000
-const userRoutes = require('./routers/users')
+
 
 const test = express()
 test.use(cors());

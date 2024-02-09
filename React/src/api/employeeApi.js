@@ -70,3 +70,26 @@ export const getEmployee = async (employeeId) => {
       throw error; // Re-throw the error for handling in the calling function
     }
   };
+
+ export  const createEmployee = async (values) => {
+
+    try{
+    const response = await fetch('http://localhost:3000/employees', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    });
+        
+     if(!response.ok){
+      console.log('Error adding employee');
+    }
+  
+    const data = await response.json();
+    alert('Employee added successfully');
+    console.log('Employee created:', data);
+  }
+  catch(error){
+    console.error('Error creating employee:', error);
+  }
+    
+  };

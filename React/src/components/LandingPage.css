@@ -1,0 +1,26 @@
+.landing-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .landing-title {
+    margin-bottom: 20px;
+  }
+  
+  .landing-description {
+    margin-bottom: 20px;
+  }
+  
+  .landing-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .landing-btn:hover {
+    background-color: #0056b3;
+  }
+  

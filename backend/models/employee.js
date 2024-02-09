@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema({
     },
     employeename: {
         type: String, 
-        
+
     },
     dob: { 
         type: Date, 
@@ -22,19 +22,23 @@ const employeeSchema = new mongoose.Schema({
     isActive: { 
         type: Boolean, 
         default: true
-     },
-    employmentType: { 
-      type: String,
-      enum: ['FullTime', 'PartTime', 'Contract'],
     },
-    role:{
-        type: String,
-        enum: ['Admin', 'Normal', 'SuperAdmin'],
+   employmentType: { 
+     type: String,
+     enum: ['FullTime', 'PartTime', 'Contract'],
+   },
+   role:{
+       type: String,
+       enum: ['Admin', 'Normal', 'SuperAdmin'],
+
     },
     password: {
         type: String,
         required: true,
       },
+      token:{
+        type: String,
+      }
     });
     
     employeeSchema.pre('save', async function (next) {
@@ -42,7 +46,9 @@ const employeeSchema = new mongoose.Schema({
         this.password = await bcrypt.hash(this.password, salt);
         next();
       });
-      
 
 
-  module.exports = mongoose.model('employee',employeeSchema)
+
+      module.exports = mongoose.model('employee',employeeSchema)
+
+   
