@@ -34,7 +34,7 @@ const SignIn = () => {
     //  response.cookie('jwt',token,{httpOnly: true})
     localStorage.setItem("key", session.token);
 
-     navigate('/Dashboard')
+     navigate('/Home');
      
      }
      else{

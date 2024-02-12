@@ -7,6 +7,7 @@ import SignIn from './components/Signin';
 import Dashboard from './components/Dashboard';
 import EditEmployee from './components/EditEmployee';
 import Home from './components/Home'
+import EmployeeForm from './components/EmployeeForm';
 
 
 const App = () => {
@@ -18,8 +19,9 @@ const App = () => {
         <Route path="/employee/signup" element={<SignUp />} />
         <Route path="/employees/:employeeId" element={<EditEmployee />} />
         <Route path="/" element={<LandingPage />} />
-        {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
-        {/* <Route path ='/Home'element={<Home/>}/> */}
+        <Route path="/employee/Dashboard" element ={<Dashboard/>}/>
+        <Route path ='/Home'element={<Home/>}/>
+        <Route path ='/CreateEmployee' element={<EmployeeForm/>}/>
         </Routes>
     </Router>
   );

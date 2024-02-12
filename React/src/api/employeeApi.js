@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/employees'; 
+const apiUrl = 'http://localhost:3000/api/employees'; 
 
 export const getTable = async () => {
     try {
@@ -64,10 +64,10 @@ export const getEmployee = async (employeeId) => {
       }
   
       console.log('Employee updated successfully!');
-      return response.json(); // Optional: Return the updated employee data
+      return response.json(); 
     } catch (error) {
       console.error('Error updating employee:', error);
-      throw error; // Re-throw the error for handling in the calling function
+      throw error; 
     }
   };
 

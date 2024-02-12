@@ -17,17 +17,11 @@
 // export default Navbar;
 // Navbar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useParams} from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-  // const location = useLocation();
-
-  // // Show sign-in and sign-up links only on the landing page
-  // if (location.pathname !== '/') {
-  //   return null;
-  // }
-
+  const { employeeId } = useParams();
   return (
     <nav>
       <ul>
@@ -36,6 +30,12 @@ const Navbar = () => {
         </li>
         <li>
           <Link to={`/employee/signup`}>Sign Up</Link>
+        </li>
+        <li> 
+          <Link to="/employee/Dashboard">Dashboard</Link>
+          </li>
+         <li>
+           <Link to={`/CreateEmployee`}>Create Employee</Link> 
         </li>
       </ul>
     </nav>
