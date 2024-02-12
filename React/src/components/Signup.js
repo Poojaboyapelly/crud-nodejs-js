@@ -6,7 +6,7 @@ import { signUp } from '../api/authApi';
 import './SignUp.css'
 
 const SignUp = () => {
-    
+
 const navigate = useNavigate(); 
   const initialValues = {
     employeeId: '',
@@ -20,7 +20,8 @@ const navigate = useNavigate();
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      await signUp(values);
+      const newEmployee =await signUp(values);
+      console.log(newEmployee)
       navigate('/');
     } catch (error) {
       console.error('Error signing up');

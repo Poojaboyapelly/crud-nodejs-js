@@ -4,9 +4,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { signIn } from '../api/authApi';
 import './SignIn.css'
-
 const SignIn = () => {
  const navigate = useNavigate();
+ 
 
   const initialValues = {
     employeeId: '',
@@ -23,8 +23,16 @@ const SignIn = () => {
 
      const response= await signIn(values);
      console.log(response);
+
+     
+     
      if(response.auth){
+     const token = response.token;
+    //  response.cookie('jwt',token,{httpOnly: true})
+    localStorage.setItem('token', token);
+
      navigate('/')
+     
      }
      else{
         setFieldError('password','Invalid credentials')

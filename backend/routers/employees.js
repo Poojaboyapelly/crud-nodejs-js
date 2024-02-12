@@ -4,6 +4,8 @@ const router = express.Router()
 const Employee = require('../models/employee');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+// const cookieParser = require('cookie-parser');
+// const cookie = require('cookieParser')
 
 router.get('/', async (req, res) => {
 
@@ -142,8 +144,10 @@ router.post('/employee/signup', async (req, res) => {
 
     const payload = { employeeId: employee.employeeId, role: employee.role };
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 600 });
+    // res.cookie('jwt',token,{httpOnly: true,maxAge: 320000})
 
     res.status(201).json({ success: true, token });
+    // res.status(201).json({employee: employee._id});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

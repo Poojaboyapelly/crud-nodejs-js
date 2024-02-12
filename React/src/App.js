@@ -6,7 +6,7 @@ import SignUp from './components/Signup';
 import SignIn from './components/Signin';
 import Dashboard from './components/Dashboard';
 import EditEmployee from './components/EditEmployee';
-// import Home from './components/Home';
+// import Home from './components/Home'
 
 
 const App = () => {

@@ -38,7 +38,8 @@ export const signIn = async (formData) => {
       }
   
       const newEmployee= await response.json();
-      await createEmployee(newEmployee);
+      console.log(newEmployee);
+      //await createEmployee(newEmployee);
       return newEmployee;
     } catch (error) {
       throw new Error('Sign up failed: ' + error.message);
