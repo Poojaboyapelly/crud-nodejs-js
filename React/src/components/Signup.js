@@ -20,12 +20,13 @@ const navigate = useNavigate();
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      const newEmployee =await signUp(values);
-      console.log(newEmployee)
-      navigate('/');
+      const response= await signUp(values);
+      if(response.created){
+      navigate('/employee/signin');
+      }
     } catch (error) {
-      console.error('Error signing up');
-      setFieldError('password', 'Error signing up, please try again');
+    console.error(error);
+      setFieldError('password', 'error signing up');
     } finally {
       setSubmitting(false);
     }

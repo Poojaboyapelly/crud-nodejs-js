@@ -4,6 +4,7 @@ const router = express.Router()
 const Employee = require('../models/employee');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Session = require('../models/sessions');
 // const cookieParser = require('cookie-parser');
 // const cookie = require('cookieParser')
 
@@ -141,13 +142,8 @@ router.post('/employee/signup', async (req, res) => {
 
     const employee = new Employee(req.body);
     await employee.save();
-
-    const payload = { employeeId: employee.employeeId, role: employee.role };
-    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 600 });
-    // res.cookie('jwt',token,{httpOnly: true,maxAge: 320000})
-
-    res.status(201).json({ success: true, token });
-    // res.status(201).json({employee: employee._id});
+    console.log('User created successfully . Please signin ');
+    return res.status(200).json({created: true});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -158,6 +154,7 @@ router.post('/employee/signup', async (req, res) => {
 router.post('/employee/signin', async (req, res) => {
   try {
     const employee = await Employee.findOne({ employeeId: req.body.employeeId });
+    console.log()
 
     if (!employee) {
       return res.status(401).json({ error: 'Invalid employee ID' });
@@ -171,7 +168,13 @@ router.post('/employee/signin', async (req, res) => {
     const payload = { employeeId: employee.employeeId, role: employee.role };
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 600 });
 
-    res.status(200).json({ auth: true, token });
+    const session = new Session({
+        employeeId: employee.employeeId,
+        token: token
+      });
+    await session.save();
+    res.status(200).json({auth :true ,session});
+    // res.status(200).json({ auth: true, token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

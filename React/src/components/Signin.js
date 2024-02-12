@@ -21,17 +21,20 @@ const SignIn = () => {
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
 
-     const response= await signIn(values);
-     console.log(response);
+    console.log(values);
+     const {auth,session}= await signIn(values);
+     console.log("session:",session);
+     console.log("auth:",auth);
+
 
      
      
-     if(response.auth){
-     const token = response.token;
+     if(auth){
+    //  const token = response.token;
     //  response.cookie('jwt',token,{httpOnly: true})
-    localStorage.setItem('token', token);
+    localStorage.setItem("key", session.token);
 
-     navigate('/')
+     navigate('/Dashboard')
      
      }
      else{
