@@ -8,23 +8,28 @@ import Dashboard from './components/Dashboard';
 import EditEmployee from './components/EditEmployee';
 import Home from './components/Home'
 import EmployeeForm from './components/EmployeeForm';
-import PrivateRoute from './components/PrivateRoute';
+import {RequireAuth} from './components/RequireAuth';
+import { AuthProvider } from './components/Auth';
 
 
 const App = () => {
 
   return (
+    <AuthProvider>
     <Router>
      <Routes>
      <Route path="/employee/signin" element={<SignIn />} />
         <Route path="/employee/signup" element={<SignUp />} />
         <Route path="/" element={<LandingPage />} />
-        <Route path="/employees/:employeeId" element={<PrivateRoute><EditEmployee /></PrivateRoute>} />
-        <Route path="/employee/Dashboard" element ={<PrivateRoute><Dashboard/></PrivateRoute>}/>
-        <Route path ='/Home'element={<PrivateRoute><Home/></PrivateRoute>}/>
-        <Route path ='/CreateEmployee' element={<PrivateRoute><EmployeeForm initialValues={{}}/></PrivateRoute>}/>
+        
+        <Route path="/employees/:employeeId" element={<RequireAuth><EditEmployee /></RequireAuth>} />
+        <Route path="/employee/Dashboard" element = {<RequireAuth><Dashboard/></RequireAuth>} />
+        <Route path ='/Home'element={<RequireAuth><Home/></RequireAuth>}/>
+        <Route path ='/CreateEmployee' element={<RequireAuth><EmployeeForm initialValues={{}}/></RequireAuth>}/>
+        
         </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 

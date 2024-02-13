@@ -12,8 +12,8 @@ const EmployeeForm = ({ initialValues }) => {
     const [isActive, setIsActive] = useState(initialValues.isActive || false);
     const [employmentType, setEmploymentType] = useState(initialValues.employmentType||'' ); 
     const [role,setRole] = useState(initialValues.role || '');
-    // const [password,setpassword] =useState(initialValues.password || '')
-  
+    const [password,setPassword] =useState(initialValues.password || 'password@1234')
+    
 
   
     const navigate = useNavigate();
@@ -37,7 +37,7 @@ const EmployeeForm = ({ initialValues }) => {
         setIsActive(false);
         setEmploymentType('');
         setRole('');
-        // setpassword('');
+        setPassword('password@1234');
         navigate('/'); 
     
       } catch (error) {
@@ -55,7 +55,7 @@ const EmployeeForm = ({ initialValues }) => {
 
     const createEmployee = async () => {
 
-    
+    try{
       const response = await fetch('http://localhost:3000/api/employees', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -74,6 +74,10 @@ const EmployeeForm = ({ initialValues }) => {
       alert('Employee added successfully');
       
       console.log('Employee created:', data);
+    }catch (error) {
+      console.error('Error creating employee:', error);
+      alert('An error occurred while creating employee');
+    }
     }; 
       
     const updateEmployee = async (employeeId) => {
@@ -143,11 +147,11 @@ const EmployeeForm = ({ initialValues }) => {
             <option value="Normal">Normal</option>
           </select>
         </div>
-        {/* <div>
+        <div>
           <label htmlFor="password">password:</label>
-          <input type="password" id="password" name="password" value={password}onChange={(e) => setpassword(e.target.value)} />
+          <input type="password" id="password" name="password" defaultValue={password} onChange={(e) => setPassword(e.target.value) }disabled />
           
-        </div> */}
+        </div>
         <div className='form-field'>
           <button id='submit-button' type="submit"  >Submit</button>
         </div>

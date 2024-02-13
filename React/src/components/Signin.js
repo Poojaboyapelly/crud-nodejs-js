@@ -1,14 +1,17 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate ,useLocation} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { signIn } from '../api/authApi';
 import './SignIn.css'
-import AuthContext from './AuthContext';
+import {useAuth} from './Auth';
 
 const SignIn = () => {
+ const location =useLocation();
+ const [user,setUser] =useState(false);
  const navigate = useNavigate();
- const {setIsAuthenticated}= useContext(AuthContext);
+ const auth =useAuth();
+ const redirectPath =location.state?.path || '/Home'
 
   const initialValues = {
     employeeId: '',
@@ -23,6 +26,7 @@ const SignIn = () => {
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
 
+    
     console.log(values);
      const {auth,session}= await signIn(values);
      console.log("session:",session);
@@ -35,9 +39,11 @@ const SignIn = () => {
         
        
             localStorage.setItem("key", session.token);
-            setIsAuthenticated(true);
-            const redirectTo = new URLSearchParams(window.location.search).get('redirect');
-            navigate(redirectTo || '/Home'); 
+            console.log("Before",user)
+            auth.login(true);
+            console.log("After",user);
+            // const redirectTo = new URLSearchParams(window.location.search).get('redirect');
+            navigate(redirectPath ,{replace:true}); 
           
     // localStorage.setItem("key", session.token);
 
