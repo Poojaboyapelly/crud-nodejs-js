@@ -205,6 +205,28 @@ router.get('/validateToken', async (req, res) => {
       return res.status(401).send(error);
     }
   })
+
+
+  router.post('/logout', async (req, res) => {
+    try {
+      const { employeeId } = req.body;
+
+      if (!employeeId) {
+        return res.status(400).json({ message: 'Employee ID not provided' });
+      }
+  
+      await Session.findOneAndDelete({ employeeId });
+
+      return res.status(200).json({ message: 'Logout successful' });
+
+    } catch (error) {
+
+      console.error('Logout error:', error);
+      
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
   
 
 module.exports = router;

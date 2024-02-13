@@ -38,7 +38,7 @@ const EmployeeForm = ({ initialValues }) => {
         setEmploymentType('');
         setRole('');
         setPassword('password@1234');
-        navigate('/'); 
+        navigate('/Home'); 
     
       } catch (error) {
         if (error.response && error.response.data) {

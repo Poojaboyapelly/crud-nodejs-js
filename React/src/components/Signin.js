@@ -8,7 +8,6 @@ import {useAuth} from './Auth';
 
 const SignIn = () => {
  const location =useLocation();
- const [user,setUser] =useState(false);
  const navigate = useNavigate();
  const auth1 =useAuth();
  const redirectPath =location.state?.path || '/Home'
@@ -37,17 +36,9 @@ const SignIn = () => {
      
      if(auth){
         
-       
             localStorage.setItem("key", session.token);
-           
             auth1.login(true);
-        
-            // const redirectTo = new URLSearchParams(window.location.search).get('redirect');
-            navigate(redirectPath ,{replace:true}); 
-          
-    // localStorage.setItem("key", session.token);
-
-    //  navigate('/Home');
+            navigate(redirectPath ,{replace:true});
      
      }
      else{

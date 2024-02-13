@@ -35,7 +35,7 @@ const EditEmployee = () => {
             //console.log('Submitting employee data:', updatedEmployee);
             await updateEmployee(employeeId, updatedEmployee);
             alert('Employee updated successfully!');
-            navigate('/'); // Redirect back to the Dashboard
+            navigate('/Home'); 
         } catch (error) {
           console.error('Error submitting employee:', error);
           alert('An error occurred. Please try again later.');
