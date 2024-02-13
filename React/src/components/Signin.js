@@ -10,7 +10,7 @@ const SignIn = () => {
  const location =useLocation();
  const [user,setUser] =useState(false);
  const navigate = useNavigate();
- const auth =useAuth();
+ const auth1 =useAuth();
  const redirectPath =location.state?.path || '/Home'
 
   const initialValues = {
@@ -39,9 +39,9 @@ const SignIn = () => {
         
        
             localStorage.setItem("key", session.token);
-            console.log("Before",user)
-            auth.login(true);
-            console.log("After",user);
+           
+            auth1.login(true);
+        
             // const redirectTo = new URLSearchParams(window.location.search).get('redirect');
             navigate(redirectPath ,{replace:true}); 
           
