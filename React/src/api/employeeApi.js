@@ -50,7 +50,7 @@ export const getEmployee = async (employeeId) => {
   };
   
   export const updateEmployee = async (employeeId, updatedEmployeeData) => {
-    const apiUrl = `http://localhost:3000/employees/${employeeId}`; 
+    const apiUrl = `${apiUrl}/${employeeId}`; 
   
     try {
       const response = await fetch(apiUrl, {
@@ -74,7 +74,7 @@ export const getEmployee = async (employeeId) => {
  export  const createEmployee = async (values) => {
 
     try{
-    const response = await fetch('http://localhost:3000/api/employees', {
+    const response = await fetch('${apiUrl}/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),

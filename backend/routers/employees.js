@@ -51,9 +51,9 @@ router.get('/', async (req, res) => {
 
         const sortOptions = {};
         if (sort === 'desc') {
-            sortOptions.name = -1;
+            sortOptions.employeename = -1;
         } else {
-            sortOptions.name = 1;
+            sortOptions.employeename = 1;
         }
 
         const employees = await Employee.find(query).sort(sortOptions);
@@ -74,7 +74,8 @@ router.post('/', async (req, res) => {
         department: req.body.department,
         isActive: req.body.isActive,
         employmentType: req.body.employmentType,
-        role: req.body.role
+        role: req.body.role,
+        password: req.body.password,
     });
     try {
         const e1 = await emp.save();

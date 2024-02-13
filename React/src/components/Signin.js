@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { signIn } from '../api/authApi';
 import './SignIn.css'
+import AuthContext from './AuthContext';
+
 const SignIn = () => {
  const navigate = useNavigate();
- 
+ const {setIsAuthenticated}= useContext(AuthContext);
 
   const initialValues = {
     employeeId: '',
@@ -30,11 +32,16 @@ const SignIn = () => {
      
      
      if(auth){
-    //  const token = response.token;
-    //  response.cookie('jwt',token,{httpOnly: true})
-    localStorage.setItem("key", session.token);
+        
+       
+            localStorage.setItem("key", session.token);
+            setIsAuthenticated(true);
+            const redirectTo = new URLSearchParams(window.location.search).get('redirect');
+            navigate(redirectTo || '/Home'); 
+          
+    // localStorage.setItem("key", session.token);
 
-     navigate('/Home');
+    //  navigate('/Home');
      
      }
      else{

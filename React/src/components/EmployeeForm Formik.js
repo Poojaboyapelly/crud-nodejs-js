@@ -52,7 +52,7 @@ const EmployeeForm = ({ initialValues }) => {
   });
 
   const createEmployee = async (values) => {
-    const response = await fetch('http://localhost:3000/employees', {
+    const response = await fetch('http://localhost:3000/api/employees', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
@@ -64,7 +64,7 @@ const EmployeeForm = ({ initialValues }) => {
   };
 
   const updateEmployee = async (employeeId, values) => {
-    const response = await fetch(`http://localhost:3000/employees/${employeeId}`, {
+    const response = await fetch(`http://localhost:3000/api/employees/${employeeId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),

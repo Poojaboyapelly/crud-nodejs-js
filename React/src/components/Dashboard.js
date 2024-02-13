@@ -65,6 +65,7 @@ const Dashboard = () => {
           <th scope="col">DOB</th>
           <th scope="col">Is Active</th>
           <th scope="col">Employment Type</th>
+          <th scope="col">Role</th>
           <th scope="col">Edit</th>
           <th scope="col">Delete</th>
           </tr>
@@ -78,6 +79,7 @@ const Dashboard = () => {
               <td>{employee.dob}</td>
               <td>{employee.isActive ? 'Yes' : 'No'}</td>
               <td>{employee.employmentType}</td>
+              <td>{employee.role}</td>
               <td>
                 <button onClick={() => handleEdit(employee.employeeId)}>
                 <i className="far fa-edit"></i> Edit

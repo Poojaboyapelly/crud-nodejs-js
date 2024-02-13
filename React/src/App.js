@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 import EditEmployee from './components/EditEmployee';
 import Home from './components/Home'
 import EmployeeForm from './components/EmployeeForm';
+import PrivateRoute from './components/PrivateRoute';
 
 
 const App = () => {
@@ -17,11 +18,11 @@ const App = () => {
      <Routes>
      <Route path="/employee/signin" element={<SignIn />} />
         <Route path="/employee/signup" element={<SignUp />} />
-        <Route path="/employees/:employeeId" element={<EditEmployee />} />
         <Route path="/" element={<LandingPage />} />
-        <Route path="/employee/Dashboard" element ={<Dashboard/>}/>
-        <Route path ='/Home'element={<Home/>}/>
-        <Route path ='/CreateEmployee' element={<EmployeeForm/>}/>
+        <Route path="/employees/:employeeId" element={<PrivateRoute><EditEmployee /></PrivateRoute>} />
+        <Route path="/employee/Dashboard" element ={<PrivateRoute><Dashboard/></PrivateRoute>}/>
+        <Route path ='/Home'element={<PrivateRoute><Home/></PrivateRoute>}/>
+        <Route path ='/CreateEmployee' element={<PrivateRoute><EmployeeForm initialValues={{}}/></PrivateRoute>}/>
         </Routes>
     </Router>
   );

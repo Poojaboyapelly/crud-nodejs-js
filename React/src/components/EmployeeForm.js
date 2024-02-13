@@ -4,60 +4,23 @@ import './EmployeeForm.css';
 
 
 const EmployeeForm = ({ initialValues }) => {
-    const [employeename, setEmployeeName] = useState(initialValues.employeename ? initialValues.employeename: '');
+    
     const [employeeId, setEmployeeId] = useState(initialValues.employeeId ? initialValues.employeeId : '');
+    const [employeename, setEmployeeName] = useState(initialValues.employeename ? initialValues.employeename: '');
     const [department, setDepartment] = useState(initialValues.department ? initialValues.department : '');
     const [dob, setDob] = useState(initialValues.dob ? initialValues.dob : '' );
     const [isActive, setIsActive] = useState(initialValues.isActive || false);
     const [employmentType, setEmploymentType] = useState(initialValues.employmentType||'' ); 
+    const [role,setRole] = useState(initialValues.role || '');
+    // const [password,setpassword] =useState(initialValues.password || '')
   
 
   
     const navigate = useNavigate();
-    
-  
-    // const handleSubmit = async (event) => {
-    
-    //     event.preventDefault();
-    //     try {
-    //         const response = await fetch('http://localhost:3000/employees', {
-    //           method: 'POST',
-    //           headers: { 'Content-Type': 'application/json' },
-    //           body: JSON.stringify({
-    //             employeename,
-    //             employeeId,
-    //             department,
-    //             dob,
-    //             isActive,
-    //             employmentType,
-    //           }),
-    //         });
-      
-    //         const data = await response.json();
-    //         console.log('Employee created:', data);
-    //         // Handle success (e.g., display a success message, clear form fields)
-    //       } catch (error) {
-    //         console.error('Error creating employee:', error);
-    //         // Handle error (e.g., display an error message)
-    //       }
-        
-         
-    
-    //     // Optionally, clear the form fields after submission
-    //     setEmployeeName('');
-    //     setEmployeeId('');
-    //     setDepartment('');
-    //     setDob('');
-    //     setIsActive(false);
-    //     setEmploymentType('');
-
-    //     navigate('/');
-    //   };
-
 
     const handleSubmit = async (event) => {
       event.preventDefault();
-    
+     
       try {
         if (initialValues.employeeId) {
           await updateEmployee(initialValues.employeeId);
@@ -67,14 +30,15 @@ const EmployeeForm = ({ initialValues }) => {
            
       alert('Employee updated successfully');
 
-        // Handle success (e.g., display a success message, clear form fields)
         setEmployeeName('');
         setEmployeeId('');
         setDepartment('');
         setDob('');
         setIsActive(false);
         setEmploymentType('');
-        navigate('/'); // Or redirect to a more appropriate page
+        setRole('');
+        // setpassword('');
+        navigate('/'); 
     
       } catch (error) {
         if (error.response && error.response.data) {
@@ -88,37 +52,42 @@ const EmployeeForm = ({ initialValues }) => {
         }
       }
     };
-    
+
     const createEmployee = async () => {
-      const response = await fetch('http://localhost:3000/employees', {
+
+    
+      const response = await fetch('http://localhost:3000/api/employees', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          employeeId,
-          employeename,
-          department,
-          dob,
-          isActive,
-          employmentType,
+          employeeId:employeeId,
+          employeename:employeename,
+          department:department,
+          dob:dob,
+          isActive:isActive,
+          employmentType:employmentType,
         }),
       });
     
       const data = await response.json();
+    
       alert('Employee added successfully');
       
       console.log('Employee created:', data);
-    };
-    
+    }; 
+      
     const updateEmployee = async (employeeId) => {
-      const response = await fetch(`http://localhost:3000/employees/${employeeId}`, {
+      const response = await fetch(`http://localhost:3000/api/employees/${employeeId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          employeeId:employeeId,
           employeename: employeename || initialValues.employeename,
           department: department || initialValues.department,
           dob: dob || initialValues.dob ,
           isActive: isActive || initialValues.isActive,
-          employmentType:employmentType || initialValues.employmentType
+          employmentType:employmentType || initialValues.employmentType,
+          role:role|| initialValues.role,
         }),
       });
     
@@ -166,9 +135,23 @@ const EmployeeForm = ({ initialValues }) => {
             <option value="Contract">Contract</option>
           </select>
         </div>
+        <div>
+          <label htmlFor="role">Role:</label>
+          <select id="role" name="role" defaultValue={initialValues.role || ''} onChange={(e) => setRole(e.target.value)}>
+            <option value="Admin">Admin</option>
+            <option value="SuperAdmin">SuperAdmin</option>
+            <option value="Normal">Normal</option>
+          </select>
+        </div>
+        {/* <div>
+          <label htmlFor="password">password:</label>
+          <input type="password" id="password" name="password" value={password}onChange={(e) => setpassword(e.target.value)} />
+          
+        </div> */}
         <div className='form-field'>
           <button id='submit-button' type="submit"  >Submit</button>
         </div>
+      
       </form>
     </div>
   );
