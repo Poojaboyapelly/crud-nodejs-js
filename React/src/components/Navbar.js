@@ -9,23 +9,28 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      // const employeeId = localStorage.getItem('employeeId'); 
+       const employeeId = localStorage.getItem('employeeId'); 
       // const sessionrecord = await findOne
-      const response = await fetch('/logout', {
+      const response = await fetch('http://localhost:3000/api/employees/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ employeeId })
       });
-      
-      if (response.message="Logout successful") {
-       
-        navigate('/employee/signin');
-      } else {
-        console.error('Logout failed:', response.statusText);
-        
-      }
+      const responseData = await response.json();
+if (response.ok) {
+  if (responseData.message === "Logout successful") {
+    localStorage.removeItem("key");
+    localStorage.removeItem("employeeId");
+    navigate('/employee/signin');
+  } else {
+    console.error('Logout failed:', responseData.message);
+  }
+} else {
+  console.error('Logout failed:', response.statusText);
+}
+
     } catch (error) {
       console.error('Logout error:', error);
      

@@ -37,6 +37,7 @@ const SignIn = () => {
      if(auth){
         
             localStorage.setItem("key", session.token);
+            localStorage.setItem("employeeId",session.employeeId);
             auth1.login(true);
             navigate(redirectPath ,{replace:true});
      
