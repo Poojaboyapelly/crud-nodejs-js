@@ -1,6 +1,8 @@
 import React, { useState ,useParams} from 'react';
 import {  useNavigate } from 'react-router-dom';
 import './EmployeeForm.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 
 const EmployeeForm = ({ initialValues }) => {
@@ -66,6 +68,8 @@ const EmployeeForm = ({ initialValues }) => {
           dob:dob,
           isActive:isActive,
           employmentType:employmentType,
+          role: role,
+          password: password,
         }),
       });
     
@@ -102,61 +106,62 @@ const EmployeeForm = ({ initialValues }) => {
   
     
       return (
-    <div class="employee-form-container">
-    
+    <div class="container employee-form-container">
+    <div class="col-sm-12 col-md-6">
       <h2>{  'Add/ Edit Employee'}</h2>
-      <form id="employeeForm" onSubmit={handleSubmit}>
+      <Form id="employeeForm" onSubmit={handleSubmit}>
       
      
-        <div>
-          <label htmlFor="employeeId">Employee ID:</label>
-          <input type="text" id="employeeId" name="employeeId" defaultValue={initialValues.employeeId || ''}  onChange={(e) => setEmployeeId(e.target.value)} />
+        <div class="form-group">
+          <Form.Label htmlfor="employeeId">Employee ID:</Form.Label>
+          <Form.Control type="text" class="form-control form-field" id="employeeId" name="employeeId" defaultValue={initialValues.employeeId || ''}  onChange={(e) => setEmployeeId(e.target.value)} />
         </div>
         
         
-         <div>
-          <label htmlFor="employeename">Employee Name:</label>
-          <input type="text" id="employeename" name="employeename" defaultValue={initialValues.employeename || ''} onChange={(e) => setEmployeeName(e.target.value)  } />
+         <div class="form-group">
+          <label htmlfor="employeename">Employee Name:</label>
+          <input type="text" class="form-control form-field" id="employeename" name="employeename" defaultValue={initialValues.employeename || ''} onChange={(e) => setEmployeeName(e.target.value)  } />
         </div>
-        <div>
-          <label htmlFor="department">Department:</label>
-          <input type="text" id="department" name="department" defaultValue={initialValues.department || ''} onChange={(e) => setDepartment(e.target.value)} />
+        <div class="form-group">
+          <label htmlfor="department">Department:</label>
+          <input type="text" class="form-control form-field"id="department" name="department" defaultValue={initialValues.department || ''} onChange={(e) => setDepartment(e.target.value)} />
         </div>
-        <div>
-          <label htmlFor="dob">DOB:</label>
-          <input type="date" id="dob" name="dob" value={dob}onChange={(e) => setDob(e.target.value)} />
+        <div class="form-group">
+          <label htmlfor="dob">DOB:</label>
+          <input type="date" class="form-control form-field" id="dob" name="dob" value={dob}onChange={(e) => setDob(e.target.value)} />
           
         </div>
-        <div>
-          <label htmlFor="isActive">Is Active:</label>
+        <div >
+          <label htmlfor="isActive">Is Active:</label>
           <input type="checkbox" id="isActive" name="isActive" checked={isActive} onChange={(e) => setIsActive(e.target.checked)} />
         </div>
-        <div>
-          <label htmlFor="employmentType">Employment Type:</label>
+        <div class="form-group">
+          <label htmlfor="employmentType">Employment Type:</label>
           <select id="employmentType" name="employmentType" defaultValue={initialValues.employmentType || ''} onChange={(e) => setEmploymentType(e.target.value)}>
             <option value="FullTime">FullTime</option>
             <option value="PartTime">PartTime</option>
             <option value="Contract">Contract</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="role">Role:</label>
-          <select id="role" name="role" defaultValue={initialValues.role || ''} onChange={(e) => setRole(e.target.value)}>
+        <div class="form-group">
+          <label htmlfor="role">Role:</label>
+          <select id="role" name="role" class="form-control form-field"  defaultValue={initialValues.role || ''} onChange={(e) => setRole(e.target.value)}>
             <option value="Admin">Admin</option>
             <option value="SuperAdmin">SuperAdmin</option>
             <option value="Normal">Normal</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="password">password:</label>
+        <div class="form-group">
+          <label htmlfor="password">password:</label>
           <input type="password" id="password" name="password" defaultValue={password} onChange={(e) => setPassword(e.target.value) }disabled />
           
         </div>
         <div className='form-field'>
-          <button id='submit-button' type="submit"  >Submit</button>
+          <button id='submit-button' type="submit" class="btn btn-primary" >Submit</button>
         </div>
       
-      </form>
+      </Form>
+      </div>
     </div>
   );
 };

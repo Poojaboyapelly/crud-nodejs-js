@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { signUp } from '../api/authApi';
 import './SignUp.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignUp = () => {
 
@@ -33,8 +34,9 @@ const navigate = useNavigate();
   };
 
   return (
-    <div class='SignUp'>
-      <h2>Sign Up</h2>
+    <div className='SignUp '>
+      <div className="container">
+      <h2 className="mb-4 ">Sign Up</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -42,18 +44,19 @@ const navigate = useNavigate();
       >
         {({ isSubmitting }) => (
           <Form id='SignUp-form'>
-            <div>
-              <Field type="text" name="employeeId" placeholder="Employee ID" />
-              <ErrorMessage name="employeeId" component="div" />
+            <div className="mb-3">
+              <Field type="text" className="form-control" name="employeeId" placeholder="Employee ID" />
+              <ErrorMessage name="employeeId" component="div" className="invalid-feedback"/>
             </div>
-            <div>
-              <Field type="password" name="password" placeholder="Password" />
-              <ErrorMessage name="password" component="div" />
+            <div className="mb-3">
+              <Field type="password" className="form-control"  name="password" placeholder="Password" />
+              <ErrorMessage name="password" component="div" className="invalid-feedback" />
             </div>
-            <button type="submit" disabled={isSubmitting}>Sign Up</button>
+            <button className='btn btn-primary' disabled={isSubmitting}>Sign Up</button>
           </Form>
         )}
       </Formik>
+    </div>
     </div>
   );
 };

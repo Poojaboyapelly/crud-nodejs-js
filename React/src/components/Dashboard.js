@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { getTable, deleteEmployee,getEmployee } from '../api/employeeApi'; 
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
-
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import Navbar from './Navbar';
 
 const Dashboard = () => {
   const [employees, setEmployees] = useState([]);
@@ -55,8 +57,9 @@ const Dashboard = () => {
     
    
     <div>
-      <h2>Employee list</h2>
-      <table id = "employee-table"  className="employee-table table table-striped">
+      <Navbar/>
+      <h2 >Employee list</h2>
+      <Table striped bordered hover variant="light" size="sm">
         <thead>
           <tr>
           <th scope="col">Employee ID</th>
@@ -81,19 +84,19 @@ const Dashboard = () => {
               <td>{employee.employmentType}</td>
               <td>{employee.role}</td>
               <td>
-                <button onClick={() => handleEdit(employee.employeeId)}>
+                <Button onClick={() => handleEdit(employee.employeeId)}>
                 <i className="far fa-edit"></i> Edit
-                </button>
+                </Button>
                 </td>
                 <td>
-                <button onClick={() => handleDelete(employee.employeeId)}>
+                <Button onClick={() => handleDelete(employee.employeeId)}>
                   <i className="far fa-trash-alt"></i> Delete
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
     
   );

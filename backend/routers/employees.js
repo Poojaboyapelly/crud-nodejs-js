@@ -5,6 +5,9 @@ const Employee = require('../models/employee');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Session = require('../models/sessions');
+const cron = require('node-cron');
+const { v4: uuidv4 } = require('uuid');
+
 // const cookieParser = require('cookie-parser');
 // const cookie = require('cookieParser')
 
@@ -47,7 +50,7 @@ router.get('/', async (req, res) => {
             query.department = department;
         }
 
-        console.log('Query:',);
+        
 
         const sortOptions = {};
         if (sort === 'desc') {
@@ -147,15 +150,22 @@ router.post('/employee/signup', async (req, res) => {
     return res.status(200).json({created: true});
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.json(err);
   }
 });
 
 // Signin method
 router.post('/employee/signin', async (req, res) => {
   try {
+
+    const { employeeId, password } = req.body;
+    const existingSession = await Session.findOne({ employeeId });
+
+    if(existingSession){
+      return res.status(200).json({ auth: true, session: existingSession });
+    }
     const employee = await Employee.findOne({ employeeId: req.body.employeeId });
-    console.log()
+   
 
     if (!employee) {
       return res.status(401).json({ error: 'Invalid employee ID' });
@@ -168,17 +178,24 @@ router.post('/employee/signin', async (req, res) => {
 
     const payload = { employeeId: employee.employeeId, role: employee.role };
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 600 });
+    const expirationDate = new Date(Date.now() + 600*1000); 
+    const sessionId = uuidv4();
+    console.log(sessionId);
+
 
     const session = new Session({
+        sessionId: sessionId,
         employeeId: employee.employeeId,
-        token: token
+        token: token,
+        expiresAt: expirationDate
       });
+
     await session.save();
     res.status(200).json({auth :true ,session});
     // res.status(200).json({ auth: true, token });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+    console.log(err,"errrrrrrrrrrrrrrrrrrrrror");
+    res.json(err);
   }
 });
 
@@ -226,6 +243,18 @@ router.get('/validateToken', async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+  const cleanupExpiredSessions = async () => {
+    try {
+        await Session.deleteMany({ expiresAt: { $lt: new Date() } });
+        console.log('Expired sessions cleaned up successfully');
+    } catch (error) {
+        console.error('Error cleaning up expired sessions:', error);
+    }
+};
+
+
+// cron.schedule('0 * * * *', cleanupExpiredSessions);
   
   
 

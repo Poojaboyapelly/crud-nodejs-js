@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { signIn } from '../api/authApi';
 import './SignIn.css'
 import {useAuth} from './Auth';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignIn = () => {
  const location =useLocation();
@@ -31,7 +32,6 @@ const SignIn = () => {
      console.log("session:",session);
      console.log("auth:",auth);
 
-
      
      
      if(auth){
@@ -47,7 +47,7 @@ const SignIn = () => {
      }
    
     } catch (error) {
-      console.error('Error signing in');
+      console.error(error);
       setFieldError('password', 'Try again later');
     } finally {
       setSubmitting(false);
@@ -55,8 +55,9 @@ const SignIn = () => {
   };
 
   return (
-    <div class='Signin'>
-      <h2>Sign In</h2>
+    <div className='Signin'>
+       <div className="container">
+      <h2 class='mb-4'>Sign In</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -64,18 +65,19 @@ const SignIn = () => {
       >
         {({ isSubmitting }) => (
           <Form id="Signin-form" >
-            <div>
-              <Field type="text" name="employeeId" placeholder="Employee ID" />
-              <ErrorMessage name="employeeId" component="div" />
+            <div className='mb-3'>
+              <Field className="form-control" type="text" name="employeeId" placeholder="Employee ID" />
+              <ErrorMessage name="employeeId" component="div" className="invalid-feedback"/>
             </div>
-            <div>
-              <Field type="password" name="password" placeholder="Password" />
-              <ErrorMessage name="password" component="div" />
+            <div className='mb-3'>
+              <Field className="form-control" type="password" name="password" placeholder="Password" />
+              <ErrorMessage name="password" component="div" className="invalid-feedback"/>
             </div>
-            <button type="submit" disabled={isSubmitting}>Sign In</button>
+            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Sign In</button>
           </Form>
         )}
       </Formik>
+    </div>
     </div>
   );
 };
