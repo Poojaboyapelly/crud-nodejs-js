@@ -1,5 +1,6 @@
-import { createEmployee } from "./employeeApi";
-const apiUrl = 'http://localhost:3000/api/employees'; 
+
+const apiUrl=process.env.apiUrl;
+console.log(apiUrl);
 
 export const signIn = async (formData) => {
     try {
@@ -15,8 +16,15 @@ export const signIn = async (formData) => {
         const errorMessage = await response.text();
         throw new Error(errorMessage);
       }
-  
-      return await response.json();
+      const responseData = await response.json();
+
+      if (responseData.auth) {
+          // If authentication is successful
+          return responseData;
+      } else {
+          // If authentication failed
+          throw new Error(responseData.error);
+      }
     } catch (error) {
       throw new Error('Sign in failed: ' + error.message);
     }

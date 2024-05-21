@@ -3,24 +3,20 @@
     padding: 20px;
   }
   
-  .landing-title {
-    margin-bottom: 20px;
-  }
-  
   .landing-description {
     margin-bottom: 20px;
   }
+.landing-content h1{
+  text-align: center;
+}
+.landing-content p {
+  margin-bottom: 10%;
+  margin-top: 5%;
   
-  .landing-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .landing-btn:hover {
-    background-color: #0056b3;
-  }
-  
+}
+/* .grid{
+  background-color: aliceblue;
+  justify-content: center;
+  align-items: center;
+} */
+

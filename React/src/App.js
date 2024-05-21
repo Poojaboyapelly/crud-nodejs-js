@@ -10,6 +10,8 @@ import Home from './components/Home'
 import EmployeeForm from './components/EmployeeForm';
 import {RequireAuth} from './components/RequireAuth';
 import { AuthProvider } from './components/Auth';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 const App = () => {
