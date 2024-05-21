@@ -38,6 +38,6 @@ test.use('/api/employees',employeeRouter)
 // test.use('/api/user',userRoutes)
 
 
-test.listen(PORT,function() {
+test.listen(PORT,'0.0.0.0',function() {
  console.log(`Server running at ${process.env.PORT}`)
 })
