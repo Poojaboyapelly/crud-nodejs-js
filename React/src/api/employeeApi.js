@@ -1,8 +1,10 @@
-const apiUrl = 'http://localhost:3000/api/employees'; 
+
+
+const url_b =process.env.apiUrl;
 
 export const getTable = async () => {
     try {
-      const response = await fetch(apiUrl);
+      const response = await fetch(url_b);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status} - ${await response.text()}`);
       }
@@ -15,7 +17,7 @@ export const getTable = async () => {
   };
 export const deleteEmployee = async (employeeId) => {
   try {
-    const response = await fetch(`${apiUrl}/${employeeId}`, {
+    const response = await fetch(`${url_b}/${employeeId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ export const deleteEmployee = async (employeeId) => {
 
 export const getEmployee = async (employeeId) => {
     try {
-      const response = await fetch(`${apiUrl}/${employeeId}`);
+      const response = await fetch(`${url_b}/${employeeId}`);
   
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -50,7 +52,7 @@ export const getEmployee = async (employeeId) => {
   };
   
   export const updateEmployee = async (employeeId, updatedEmployeeData) => {
-    const apiUrl = `${apiUrl}/${employeeId}`; 
+    const apiUrl = `${url_b}/${employeeId}`; 
   
     try {
       const response = await fetch(apiUrl, {

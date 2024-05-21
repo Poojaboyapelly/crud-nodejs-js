@@ -6,4 +6,17 @@
   .landing-description {
     margin-bottom: 20px;
   }
+.landing-content h1{
+  text-align: center;
+}
+.landing-content p {
+  margin-bottom: 10%;
+  margin-top: 5%;
+  
+}
+/* .grid{
+  background-color: aliceblue;
+  justify-content: center;
+  align-items: center;
+} */
 

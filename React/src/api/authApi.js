@@ -1,5 +1,6 @@
 
-const apiUrl = 'http://localhost:3000/api/employees'; 
+const apiUrl=process.env.apiUrl;
+console.log(apiUrl);
 
 export const signIn = async (formData) => {
     try {

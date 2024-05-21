@@ -60,8 +60,10 @@ const LandingPage = () => {
     // </div>
     <div>
     <div className="landing-content">
-      <h1 class="d-block p-2 text-bg-dark">Employee Management System</h1>
+      <h1 class="d-block p-2 ">Employee Management System</h1>
+      <div >
       <Navbar />
+      </div>
       <p class="h5">Please sign in or sign up</p>
       <div className="row">
         <div className="col-md-6" onClick={handleSignIn}>
