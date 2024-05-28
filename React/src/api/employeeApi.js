@@ -1,6 +1,6 @@
 
 
-const url_b =process.env.apiUrl;
+const url_b ="http://localhost:3000/api/employees";
 
 export const getTable = async () => {
     try {

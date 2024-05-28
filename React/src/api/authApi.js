@@ -1,6 +1,6 @@
 
-const apiUrl=process.env.apiUrl;
-console.log(apiUrl);
+const apiUrl="http://localhost:3000/api/employees"
+
 
 export const signIn = async (formData) => {
     try {
@@ -17,6 +17,7 @@ export const signIn = async (formData) => {
         throw new Error(errorMessage);
       }
       const responseData = await response.json();
+      console.log(responseData,"responsedata")
 
       if (responseData.auth) {
           // If authentication is successful

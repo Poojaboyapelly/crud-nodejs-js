@@ -3,8 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors'); 
 const path= require('path');
-const url = process.env.MONGODB_URL;
-const PORT = process.env.PORT || 4000;
+const url = process.env.MONGODB_URL
+const PORT = process.env.PORT;
 
 const corsOptions = {
     origin: "*",
@@ -38,6 +38,6 @@ test.use('/api/employees',employeeRouter)
 // test.use('/api/user',userRoutes)
 
 
-test.listen(PORT,'0.0.0.0',function() {
- console.log(`Server running at ${process.env.PORT}`)
+test.listen(PORT,()=> {
+ console.log(`Server running at ${PORT}`)
 })
