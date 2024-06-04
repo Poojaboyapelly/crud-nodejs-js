@@ -38,7 +38,9 @@
 // })
 
 const express = require('express');
-const connectDB = require('./db'); // Import the MongoDB connection
+const connectDB = require('./db');
+ // Import the MongoDB connection
+const mongoose = require('mongoose');
 const employeeRouter = require('./routers/employees');
 
 const app = express();
