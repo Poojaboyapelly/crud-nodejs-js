@@ -1,6 +1,6 @@
 
 
-const url_b =process.env.apiUrl||"http://localhost:3000/api/employees";
+const url_b =process.env.BACKEND_API_URL;
 
 export const getTable = async () => {
     try {

@@ -11,7 +11,7 @@ const Navbar = () => {
     try {
        const employeeId = localStorage.getItem('employeeId'); 
       // const sessionrecord = await findOne
-      const response = await fetch('http://localhost:3000/api/employees/logout', {
+      const response = await fetch(`${procees.env.BACKEND_API_URL}/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -58,7 +58,7 @@ const EmployeeForm = ({ initialValues }) => {
     const createEmployee = async () => {
 
     try{
-      const response = await fetch('http://localhost:3000/api/employees', {
+      const response = await fetch(process.env.BACKEND_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -85,7 +85,7 @@ const EmployeeForm = ({ initialValues }) => {
     }; 
       
     const updateEmployee = async (employeeId) => {
-      const response = await fetch(`http://localhost:3000/api/employees/${employeeId}`, {
+      const response = await fetch(`${process.env.BACKEND_API_URL}/${employeeId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
