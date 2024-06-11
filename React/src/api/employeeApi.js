@@ -1,5 +1,3 @@
-
-
 const url_b =process.env.BACKEND_API_URL;
 
 export const getTable = async () => {
